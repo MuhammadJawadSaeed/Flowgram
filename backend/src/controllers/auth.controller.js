@@ -14,7 +14,7 @@ async function registerController(req, res) {
 
   const user = await userModel.create({
     username,
-    password: await password.hash(password, 10),
+    password: await bcrypt.hash(password, 10),
   });
   const token = jwt.sign(
     {
@@ -37,12 +37,12 @@ async function loginController(req, res) {
     username,
   });
 
-  if (!username) {
+  if (!user) {
     return res.status(400).json({
-      message: "User d found",
+      message: "User not found",
     });
   }
-  const isPasswordValid = user.password === password;
+  const isPasswordValid = await bcrypt.compare(password, user.password);
 
   if (!isPasswordValid) {
     return res.status(400).json({
@@ -53,6 +53,7 @@ async function loginController(req, res) {
   res.cookie("token", token);
   res.status(201).json({
     message: "User login successfully",
+    user,
   });
 }
 
