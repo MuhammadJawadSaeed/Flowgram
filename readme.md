@@ -36,7 +36,7 @@ This part of the **Flowgram** project implements **user authentication** (JWT-ba
 
 1. **Clone Repository**
    ```bash
-   git clone https://github.com/yourusername/flowgram.git
+   https://github.com/MuhammadJawadSaeed/Flowgram.git
    cd flowgram
    ```
 
